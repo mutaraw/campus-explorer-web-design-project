@@ -1,0 +1,20 @@
+# .gitignore
+
+# Node.js dependencies
+node_modules/
+
+# Build and runtime files
+frontend/.next/
+frontend/out/
+backend/node_modules/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+

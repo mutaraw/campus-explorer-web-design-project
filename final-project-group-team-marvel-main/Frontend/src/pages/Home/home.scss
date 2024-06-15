@@ -1,0 +1,38 @@
+.homeBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    background-color: rgb(250, 250, 250);
+    
+}
+
+.createBtn{
+    outline: none;
+    border: none;
+    width: 150px;
+    padding: 0 16px;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #262627;
+    color: #fff;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+   
+}
+
+.filter{
+    display: flex;
+    margin: 20px;
+
+    & h3{
+        margin-right: 20px;
+    }
+
+    & select{
+        outline: none;
+    }
+}

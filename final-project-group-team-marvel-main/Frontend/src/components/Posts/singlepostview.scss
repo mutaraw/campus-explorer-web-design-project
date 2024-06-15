@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,600;1,400&display=swap');
+
+.postViewMain{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Cabin', sans-serif;
+    padding-top: 60px;
+    // justify-content: center;
+    // border: 1px solid blue;
+}
+
+.singlePostView{
+    // border: 2px solid red;
+    display: flex;
+    padding: 20px;
+    height: 550px;
+    // justify-content: space-between;
+    // flex-direction: column;
+}
+
+
+
+.singlePostHeader{
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid blue;
+}
+.singlePostHeader input{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.singlePostHeader label{
+    margin-bottom: 10px;
+}
+
+.postContentBox textarea{
+    font-size: 17px;
+    font-weight: 400;
+    overflow: scroll;
+    height: 300px;
+}
+
+.postContentBox button{
+    border: none;
+
+}
+
+.postContentBox label{
+    margin-bottom: 10px;
+}
+
+.singlePostMain{
+//    border: 1px solid yellow;
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.editSaveBtn{
+    display: flex;
+    // background-color: rgb(250, 250, 250);
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.centerComment{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(250, 250, 250);
+}
+
+.editBtnPost, .saveChangesBtnPost{
+    border: none;
+    background: #262627;
+    color: #fff;
+    line-height: 40px;
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 0 16px;
+    margin-right: 10px;
+
+}
+
+.noFileBox{
+    width: 50%;
+    background-color: rgb(250, 250, 250);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,47 @@
+.commentMain{
+    width: 600px;
+    border: 1px solid #b3b3e2;
+    padding: 20px;
+    margin-bottom: 5px;
+    box-shadow: rgba(19, 19, 19, 0.08) 0px 2px 4px 0px;
+    border-radius: 4px;
+    
+}
+
+.userAvatarComment{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+.commentHeader{
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+
+}
+.userCommentDate{
+    display: flex;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 5px;
+    // border: 1px solid red;
+    width: 100%;
+}
+
+.date{
+    margin-left: auto;
+}
+
+.commentBody{
+    padding: 5px;
+    margin-left: 30px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    // border: 1px solid red;
+}
+
+

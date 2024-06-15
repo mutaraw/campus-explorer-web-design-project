@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,600;1,400&display=swap');
+
+// .create-post {
+//     max-width: 600px;
+//     margin: 0 auto;
+//     padding: 40px;
+  
+//     h2 {
+//       font-size: 24px;
+//       font-weight: 600;
+//       margin-bottom: 20px;
+//     }
+  
+//     form {
+//       display: flex;
+//       flex-direction: column;
+  
+//       label {
+//         display: block;
+//         margin-bottom: 10px;
+//         font-weight: 600;
+//         font-size: 18px;
+//       }
+  
+//       input,
+//       textarea {
+//         padding: 10px;
+//         border: 1px solid #ccc;
+//         border-radius: 4px;
+//         font-size: 16px;
+//         margin-bottom: 20px;
+  
+//         &:focus {
+//           outline: none;
+//           border-color: #0070f3;
+//           box-shadow: 0 0 0 2px rgba(0, 118, 255, 0.1);
+//         }
+//       }
+  
+//       button {
+//         padding: 10px 20px;
+//         border-radius: 4px;
+//         background-color: #0070f3;
+//         color: #fff;
+//         font-size: 18px;
+//         font-weight: 600;
+//         cursor: pointer;
+  
+//         &:hover {
+//           background-color: #0062cc;
+//         }
+//       }
+//     }
+//   }
+
+.postContentBox{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.postMain textarea{
+  width: 100%;
+  height: 200px;
+  
+}
+
+.createPostBody{
+  display: flex;
+
+  font-family: 'Cabin', sans-serif;
+  padding: 80px 40px;
+  background-color: rgb(250, 250, 250);
+  border: 1px solid red;
+ 
+}
+
+.createPostTitle{
+  margin-top: 1.5rem;
+}
+
+.postMain {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-top: 1.5rem;
+  padding: 2rem;
+  background: rgb(255, 255, 255);
+  // border: 1.2px solid #d3720b;
+  border-radius: 0.5rem;
+  color: rgb(115, 115, 115);
+  box-shadow: rgba(19, 19, 19, 0.08) 0px 2px 4px 0px;
+}
+
+.postMain form {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  width: 100%;
+}
+
+.postMain label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.postMain input[type="text"],
+.postMain textarea {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.postMain select {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.postMain button[type="submit"] {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background: #262627;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.uploadView img {
+  max-width: 100%;
+}
+
+.uploadImage{
+  width: 500px;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  margin-top: 10px;
+}
+
+.uploadImageBox{
+  padding: 2rem;
+  margin-top: 1.5rem;
+  border-radius: 0.5rem;
+  background: rgb(255, 255, 255);
+  color: rgb(115, 115, 115);
+  box-shadow: rgba(19, 19, 19, 0.08) 0px 2px 4px 0px;
+}
+  

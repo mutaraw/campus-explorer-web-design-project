@@ -1,0 +1,10 @@
+// Footer styles 
+@import '../../index.scss';
+
+.school-footer {
+	display: flex;
+	flex-direction: column;
+	font-size: 16px;
+	margin-left: 20px;
+	position: fixed;
+}

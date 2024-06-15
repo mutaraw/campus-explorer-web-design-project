@@ -1,0 +1,1173 @@
+openapi: 3.0.3
+info:
+  title: Study Abroad API
+  description: Study Abroad API can be used to plan ahead for your higher studies by contacting the students who are currently studying or passed out from the intended school.
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      description: Obtain information about users from the database
+      operationId: retriveUsers
+      parameters: 
+        - name: bodyLimit
+          in: query
+          description: The amount users returned
+          schema:
+            type: integer
+            minimum: 10
+            maximum: 20
+            example: 15
+            
+        - name: pageLimit
+          in: query
+          description: The pages to return about users info
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+            example: 2
+            
+      responses:
+        "200":
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Users'
+        "401":
+          description: Autentication Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+    post:
+      description: Creates a new user in the database
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+                
+      responses:
+        '201':
+          description: Created a new user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          
+  
+  
+  /users/{user_id}:
+    get:
+      description: Obtain information about a specific user
+      operationId: retriveCourse
+      parameters: 
+        - name: user_id
+          in: path
+          required: true
+          description: the id of the user
+          schema:
+            type: integer
+            example: 1
+            
+      responses:
+        "200":
+          description: A single user info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+                
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
+        - adminAuth: []
+                
+                
+    put:
+      description: update the information of a specific user
+      operationId: updateUserProfile
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: the id of the user to update
+          schema:
+            type: integer
+            example: 1
+            
+      requestBody:
+        description: The new user information to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            
+      responses:
+        '200':
+          description: The updated user object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+          
+          
+    delete:
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of the user to delete
+          required: true
+          schema:
+            type: integer
+            example: 1
+            
+      responses:
+        '204':
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error - Something went wrong while deleting the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+          
+  
+  
+  
+  /schools:
+    get:
+      description: Obtain information about schools from the database
+      operationId: retriveSchools
+      parameters: 
+        - name: bodyLimit
+          in: query
+          description: The amount schools returned
+          schema:
+            type: integer
+            minimum: 10
+            maximum: 20
+            example: 15
+            
+        - name: pageLimit
+          in: query
+          description: The pages to return about school info
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+            example: 2
+            
+      responses:
+        "200":
+          description: A list of schools
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Schools'
+        "401":
+          description: Autentication Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          
+          
+    post:
+      description: Creates a new school in the database
+      operationId: createSchool
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+                
+      responses:
+        '201':
+          description: Created new shool
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+      security:
+        - adminAuth: []
+                
+                
+  /schools/{school_id}:
+    get:
+      description: Obtain information about a specific School
+      operationId: retriveSchool
+      parameters: 
+        - name: school_id
+          in: path
+          required: true
+          description: the id of the school
+          schema:
+            type: integer
+            example: 1
+            
+      responses:
+        "200":
+          description: A single school info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+                
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: School not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+                
+    put:
+      description: update the information of a specific school
+      operationId: updateSchoolProfile
+      parameters:
+        - name: school_id
+          in: path
+          required: true
+          description: the id of the school to update
+          schema:
+            type: integer
+            example: 1
+            
+      requestBody:
+        description: The new school information to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+            
+      responses:
+        '200':
+          description: The updated school object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: School not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+    delete:
+      summary: Delete a school
+      operationId: deleteSchool
+      parameters:
+        - name: school_id
+          in: path
+          description: ID of the school to delete
+          required: true
+          schema:
+            type: integer
+            example: 1
+            
+      responses:
+        '204':
+          description: School deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: School not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error - Something went wrong while deleting the School
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+                
+                
+  /applications:
+    get:
+      description: Obtain information about APIs from the database
+      operationId: retriveApplications
+      parameters: 
+        - name: bodyLimit
+          in: query
+          description: The amount applications returned
+          schema:
+            type: integer
+            minimum: 10
+            maximum: 20
+            example: 15
+            
+        - name: pageLimit
+          in: query
+          description: The pages to return about applications info
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+            example: 2
+            
+      responses:
+        "200":
+          description: A list of applications
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Applications'
+        "401":
+          description: Autentication Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          
+          
+    post:
+      description: Creates a new Application in the database
+      operationId: createApplication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+                
+      responses:
+        '201':
+          description: Created new Application
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+                
+  /applications/{application_id}:
+    get:
+      description: Obtain information about a specific Application
+      operationId: retriveApplication
+      parameters: 
+        - name: application_id
+          in: path
+          required: true
+          description: the id of the application
+          schema:
+            type: integer
+            example: 1
+            
+      responses:
+        "200":
+          description: A single application info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+                
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+                
+    put:
+      description: update the information of a specific application
+      operationId: updateApplicationProfile
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          description: the id of the application to update
+          schema:
+            type: integer
+            example: 1
+            
+      requestBody:
+        description: The new application information to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+            
+      responses:
+        '200':
+          description: The updated application object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+      security:
+        - adminAuth: []
+                
+    delete:
+      summary: Delete a application
+      operationId: deleteApplication
+      parameters:
+        - name: application_id
+          in: path
+          description: ID of the application to delete
+          required: true
+          schema:
+            type: integer
+            example: 1
+            
+      responses:
+        '204':
+          description: application deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error - Something went wrong while deleting the School
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+                
+                
+  /comments:
+    get:
+      description: Obtain information about comments from the database
+      operationId: retriveComments
+      parameters: 
+        - name: bodyLimit
+          in: query
+          description: The amount comments returned
+          schema:
+            type: integer
+            minimum: 10
+            maximum: 20
+            example: 15
+            
+        - name: pageLimit
+          in: query
+          description: The pages to return about comments info
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+            example: 2
+            
+      responses:
+        "200":
+          description: A list of comments
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Comments'
+        "401":
+          description: Autentication Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          
+          
+    post:
+      description: Creates a new comment in the database
+      operationId: createComment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+                
+      responses:
+        '201':
+          description: Created new comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+                
+  /comments/{comment_id}:
+    get:
+      description: Obtain information about a specific Comment
+      operationId: retriveComment
+      parameters: 
+        - name: comment_id
+          in: path
+          required: true
+          description: the id of the school
+          schema:
+            type: integer
+            example: 1
+            
+      responses:
+        "200":
+          description: A single comment info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+                
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Comment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+                
+    put:
+      description: update the information of a specific comment
+      operationId: updateCommentProfile
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          description: the id of the comment to update
+          schema:
+            type: integer
+            example: 1
+            
+      requestBody:
+        description: The new comment information to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+            
+      responses:
+        '200':
+          description: The updated comment object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Comment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+    delete:
+      summary: Delete a comment
+      operationId: deleteComment
+      parameters:
+        - name: comment_id
+          in: path
+          description: ID of the comment to delete
+          required: true
+          schema:
+            type: integer
+            example: 1
+            
+      responses:
+        '204':
+          description: Comment deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Comment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error - Something went wrong while deleting the School
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+      security:
+        - bearerAuth: []
+        - adminAuth: []
+                
+                
+  
+  
+
+  /login:
+    post:
+      summary: Logs a user into the app
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+      tags:
+        - authentication
+        
+  /logout:
+    post:
+      summary: Logs a user out of the app
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+      tags:
+        - authentication
+
+
+
+                    
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    adminAuth:
+      type: http
+      scheme: basic
+      
+  schemas:
+  
+    Users:
+      description: Model Array of employee info
+      type: array
+      items:
+        properties:
+          id:
+            type: integer
+            description: The unique identifier for the user
+            example: 1
+              
+          name:
+            type: string
+            description: The name of the user
+            example: John Doe
+            
+          email:
+            type: string
+            description: The email address of the user
+            example: johndoe@gmail.com
+            
+          user status:
+            type: string
+            description: what is the user status
+            example: currently studying
+            
+          user school:
+            type: string
+            description: which school does the user go to or studied
+            example: MIT
+            
+          location:
+            type: string
+            description: The location of the user
+            example: Boston
+            
+          date_joined:
+            type: string
+            format: date-time
+            description: The date and time the user joined the Web app
+            example: '2022-01-01T00:00:00Z'
+        
+  
+    User:
+      description: Model containing User Info
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier for the user
+          example: 1
+            
+        user name:
+          type: string
+          description: The name of the user
+          example: John Doe
+          
+        email:
+          type: string
+          description: The email address of the user
+          example: johndoe@gmail.com
+          
+        user status:
+          type: string
+          description: what is the user status
+          example: currently studying
+          
+        user school:
+          type: string
+          description: which school does the user go to or studied
+          example: MIT
+          
+        user location:
+          type: string
+          description: The location of the user
+          example: Boston
+          
+        date_joined:
+          type: string
+          format: date-time
+          description: The date and time the user joined the Web app
+          example: '2022-01-01T00:00:00Z'
+          
+    Schools:
+      description: Model Array of school info
+      type: array
+      items:
+        properties: 
+          id:
+            type: integer
+            description: The unique identifier for the school
+            example: 4
+            
+          school name:
+            type: string
+            description: The name of the school
+            example: Northeastern
+            
+          school location:
+            type: string
+            description: The location of the school
+            example: Boston
+            
+          school pragrams:
+            type: string
+            description: List of programs the school offers
+            example: MIS, DAE, Biotechnology
+            
+          school description:
+            type: string
+            description: description of the school
+            example: Northeastern University (NU or NEU) is a private research university with its main campus in Boston. Established in 1898, the university offers undergraduate and graduate programs on its main campus as well as satellite campuses in Charlotte, North Carolina; Seattle, Washington; San Jose, California; Oakland, California; Portland, Maine; and Toronto and Vancouver in Canada
+        
+          
+    School:
+      description: Model containing school info
+      type: object
+      properties: 
+        id:
+          type: integer
+          description: The unique identifier for the school
+          example: 4
+          
+        school name:
+          type: string
+          description: The name of the school
+          example: Northeastern
+          
+        school location:
+          type: string
+          description: The location of the school
+          example: Boston
+          
+        school pragrams:
+          type: string
+          description: List of programs the school offers
+          example: MIS, DAE, Biotechnology
+          
+        school description:
+          type: string
+          description: description of the school
+          example: Northeastern University (NU or NEU) is a private research university with its main campus in Boston. Established in 1898, the university offers undergraduate and graduate programs on its main campus as well as satellite campuses in Charlotte, North Carolina; Seattle, Washington; San Jose, California; Oakland, California; Portland, Maine; and Toronto and Vancouver in Canada
+    
+    
+    Applications:
+      description: Model Array of applications info
+      type: array
+      items: 
+        properties:
+          id:
+            type: integer
+            description: The unique identifier for the application
+            example: 2
+            
+          API name: 
+            type: string
+            description: the name of the API used
+            example: Google Maps API
+       
+          
+    Application:
+      description: Model containing Application Info
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier for the application
+          example: 2
+          
+        API name: 
+          type: string
+          description: the name of the API used
+          example: Google Maps API
+          
+        
+          
+    Comments:
+      description: Model Array of comments Info
+      type: array
+      items:
+        properties:
+          id:
+            type: integer
+            description: The unique identifier for the comment
+            example: 10
+          comment body:
+            type: string
+            description: the comment body about the info
+            example: Can I know more the school which your studying, as in the exams which you took to get an admit
+            
+          comment by:
+            type: string
+            description: which user posted the comment
+            example: John Doe
+            
+          time_posted:
+              type: string 
+              format: date-time
+              description: The date and time the user posted the comment
+              example: '2022-01-01T00:00:00Z'
+        
+    Comment:
+      description: Model containing Comment Info
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier for the comment
+          example: 10
+          
+        comment body:
+          type: string
+          description: the comment body about the info
+          example: Can I know more the school which your studying, as in the exams which you took to get an admit
+          
+        comment by:
+          type: string
+          description: which user posted the comment
+          example: John Doe
+          
+        time_posted:
+            type: string
+            format: date-time
+            description: The date and time the user posted the comment
+            example: '2022-01-01T00:00:00Z'
+          
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+        
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+        - token    
+      
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The error code.
+        message:
+          type: string
+          description: A human-readable error message.
+      example:
+        code: 400
+        message: "Invalid input data"
